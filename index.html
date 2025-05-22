@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freaky Text Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container first-container uniform-size">
+        <div class="author-label">Archangel Michael's cool stuff</div>
+        
+        <div class="input-section">
+            <label class="input-label">Your text here:</label>
+            <input type="text" class="text-input" id="textInput">
+        </div>
+
+        <div class="output-section">
+            <label class="output-label">Result:</label>
+            <input type="text" class="text-output" id="textOutput" readonly>
+        </div>
+
+        <button class="submit-button" id="submitButton">Convert</button>
+    </div>
+
+    <div class="container code-container uniform-size">
+        <div class="author-label">Source Code</div>
+        <pre class="code-block"><code>
+# This code is from https://github.com/Voxicurse/voxi-s-cool-stuff/blob/main/freaky-text-generator/freaky%20text%20generator.py
+
+import tkinter as tk
+import random
+
+root = tk.Tk()
+root.title("Freaky text generator")
+
+def submit_button_clicked():
+    text = text_input.get()
+    words = text.split()
+    converted_words = []
+    for word in words:
+        if random.choice([True, False]):
+            word = f"{word[0]}-{word.lower()}"
+        if random.choice([True, False, False]):
+            word += random.choice(["...", ".."])
+        if random.choice([True, False, False]):
+            word += random.choice(["~", "~~"])
+        converted_words.append(word)
+    text_output.delete(0, tk.END)
+    text_output.insert(0, " ".join(converted_words))
+
+    print(words, text, converted_words)
+
+author_label = tk.Label(
+    root,
+    text="Voxicurse's\nCool stuff",
+    font=("Arial", 20)
+)
+author_label.pack()
+
+filler_frame = tk.Frame(root)
+filler_frame.pack(pady=10)
+
+input_label = tk.Label(
+    root,
+    text="Your text here:",
+    font=("Arial", 15)
+)
+input_label.pack()
+
+text_input = tk.Entry(
+    root,
+    width=30,
+    font=("Arial", 20),
+    justify="center"
+)
+text_input.pack(pady=10)
+
+output_label = tk.Label(
+    root,
+    text="Result:",
+    font=("Arial", 15)
+)
+output_label.pack()
+
+text_output = tk.Entry(
+    root,
+    width=30,
+    font=("Arial", 20),
+    justify="center"
+)
+text_output.pack(pady=10)
+
+submit_button = tk.Button(
+    root,
+    text="Convert",
+    font=("Arial", 20),
+    command=submit_button_clicked
+)
+submit_button.pack()
+
+root.mainloop()
+        </code></pre>
+    </div>
+
+    <script>
+        document.getElementById('submitButton').addEventListener('click', () => {
+        const text = document.getElementById('textInput').value;
+        const words = text.split(/\s+/);
+        
+        const convertedWords = words.map(word => {
+            let modifiedWord = word;
+
+            if (Math.random() < 0.5) {
+                modifiedWord = `${word[0]}-${word.toLowerCase()}`;
+            }
+
+            if (Math.random() < 0.33) {
+                modifiedWord += Math.random() < 0.5 ? "..." : "..";
+            }
+
+            if (Math.random() < 0.33) {
+                modifiedWord += Math.random() < 0.5 ? "~" : "~~";
+            }
+
+            return modifiedWord;
+        });
+
+        document.getElementById('textOutput').value = convertedWords.join(' ');
+    });
+    </script>
+</body>
+</html>
